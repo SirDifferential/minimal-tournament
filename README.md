@@ -88,4 +88,3 @@ The generated leaderboard is a head-to-head matrix:
 3. Scores are rendered as `1`, `0.5`, or `0`
 4. Unplayed cells are empty
 5. Self-match cells use a distinct not-applicable style
-# minimal-tournament
