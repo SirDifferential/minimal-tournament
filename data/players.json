@@ -4,7 +4,27 @@
     "elo": 2000.0
   },
   {
+    "name": "TDNLT",
+    "elo": 1900.0
+  },
+  {
+    "name": "Azak",
+    "elo": 1800.0
+  },
+  {
+    "name": "oleo",
+    "elo": 1800.0
+  },
+  {
     "name": "Mothra",
     "elo": 2000.0
+  },
+  {
+	"name": "Dittman Rat",
+	"elo" : 1800.0
+  },
+  {
+	"name": "Ziper",
+	"elo" : 1800.0
   }
 ]
