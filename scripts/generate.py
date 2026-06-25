@@ -165,13 +165,30 @@ def format_score(value: float) -> str:
     return "0"
 
 
+def abbreviate_name(name: str) -> str:
+    parts = name.split()
+    if len(parts) > 1:
+        return "".join(part[0] for part in parts if part)
+    return name[:3]
+
+
 def render_standings(players: dict[str, Player], matrix_results: dict[tuple[str, str], str]) -> str:
     ordered_players = sorted(players.values(), key=lambda player: (player.name.casefold(), player.name))
 
+    points_label = "points (fleet points)"
+    escaped_points_label = escape(points_label)
+
     header_cells = ["<th>Player</th>"]
     for opponent in ordered_players:
-        header_cells.append(f'<th class="matrix-opponent">{escape(opponent.name)}</th>')
-    header_cells.append('<th class="matrix-points matrix-divider">Points</th>')
+        header_cells.append(
+            f'<th class="matrix-opponent" title="{escape(opponent.name)}" aria-label="{escape(opponent.name)}">'
+            f'<abbr title="{escape(opponent.name)}">{escape(abbreviate_name(opponent.name))}</abbr>'
+            "</th>"
+        )
+    header_cells.append(
+        f'<th class="matrix-points matrix-divider" title="{escaped_points_label}" '
+        f'aria-label="{escaped_points_label}">Points</th>'
+    )
 
     rows = []
     for player in ordered_players:
@@ -179,14 +196,23 @@ def render_standings(players: dict[str, Player], matrix_results: dict[tuple[str,
             f'<th scope="row" class="matrix-player">{escape(player.name)}</th>',
         ]
         for opponent in ordered_players:
+            matchup_label = f"{player.name} vs {opponent.name}"
             if player.name == opponent.name:
-                cells.append('<td class="matrix-cell matrix-cell--na" aria-label="not applicable"></td>')
+                cells.append(
+                    f'<td class="matrix-cell matrix-cell--na" title="{escape(matchup_label)}" '
+                    f'aria-label="{escape(matchup_label)}"></td>'
+                )
                 continue
 
             result = matrix_results.get((player.name, opponent.name), "")
-            cells.append(f'<td class="matrix-cell">{escape(result)}</td>')
+            cells.append(
+                f'<td class="matrix-cell" title="{escape(matchup_label)}" aria-label="{escape(matchup_label)}">'
+                f'{escape(result)}</td>'
+            )
         cells.append(
-            f'<td class="matrix-points matrix-divider">{format_summary(player.points, player.fleet_points)}</td>'
+            f'<td class="matrix-points matrix-divider" title="{escaped_points_label}" '
+            f'aria-label="{escaped_points_label}">'
+            f'{format_summary(player.points, player.fleet_points)}</td>'
         )
 
         rows.append(f"<tr>{''.join(cells)}</tr>")
