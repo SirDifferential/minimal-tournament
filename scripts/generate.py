@@ -166,7 +166,7 @@ def format_score(value: float) -> str:
 
 
 def render_standings(players: dict[str, Player], matrix_results: dict[tuple[str, str], str]) -> str:
-    ordered_players = sorted(players.values(), key=lambda player: player.name)
+    ordered_players = sorted(players.values(), key=lambda player: (player.name.casefold(), player.name))
 
     header_cells = ["<th>Player</th>"]
     for opponent in ordered_players:
