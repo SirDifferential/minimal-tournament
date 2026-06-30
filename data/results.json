@@ -1,9 +1,30 @@
 [
-  {
-    "player_a": "TDNLT",
-    "player_b": "Mothra",
-    "winner": "Mothra",
-    "fleet_points": 42,
-    "date": "2026-06-29"
-  }
+	{
+		"player_a": "TDNLT",
+		"player_b": "Mothra",
+		"winner": "Mothra",
+		"fleet_points": 42,
+		"date": "2026-06-29"
+	},
+	{
+		"player_a": "Azak",
+		"player_b": "Dittman Rat",
+		"winner": "Azak",
+		"fleet_points": 95,
+		"date": "2026-06-30"
+	},
+	{
+		"player_a": "Mothra",
+		"player_b": "Dittman Rat",
+		"winner": "Mothra",
+		"fleet_points": 97,
+		"date": "2026-06-30"
+	},
+	{
+		"player_a": "TDNLT",
+		"player_b": "Dittman Rat",
+		"winner": "TDNLT",
+		"fleet_points": 91,
+		"date": "2026-06-30"
+	}
 ]
