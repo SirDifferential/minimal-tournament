@@ -128,20 +128,37 @@ def load_results(path: Path, players: dict[str, Player]) -> list[dict[str, Any]]
         )
 
     return results
-def apply_results(players: dict[str, Player], results: list[dict[str, Any]]) -> dict[tuple[str, str], str]:
+def apply_results(
+    players: dict[str, Player], results: list[dict[str, Any]]
+) -> tuple[dict[tuple[str, str], str], dict[tuple[str, str], str]]:
     matrix_results: dict[tuple[str, str], str] = {}
+    matrix_tooltips: dict[tuple[str, str], str] = {}
     for entry in results:
         player_a = players[entry["player_a"]]
         player_b = players[entry["player_b"]]
         winner_name = entry["winner"]
         fleet_points = entry["fleet_points"]
+        fleet_points_text = format_points(fleet_points)
 
         if winner_name == "draw":
             score_a = 0.5
             score_b = 0.5
+            matrix_tooltips[(player_a.name, player_b.name)] = (
+                f"{player_a.name} draws with {player_b.name} ({fleet_points_text} fleet points)"
+            )
+            matrix_tooltips[(player_b.name, player_a.name)] = (
+                f"{player_b.name} draws with {player_a.name} ({fleet_points_text} fleet points)"
+            )
         else:
             score_a = 1.0 if winner_name == player_a.name else 0.0
             score_b = 1.0 if winner_name == player_b.name else 0.0
+            loser_name = player_b.name if winner_name == player_a.name else player_a.name
+            matrix_tooltips[(winner_name, loser_name)] = (
+                f"{winner_name} defeats {loser_name} by {fleet_points_text}"
+            )
+            matrix_tooltips[(loser_name, winner_name)] = (
+                f"{loser_name} loses to {winner_name} by {fleet_points_text}"
+            )
 
         player_a.points += score_a
         player_b.points += score_b
@@ -154,7 +171,7 @@ def apply_results(players: dict[str, Player], results: list[dict[str, Any]]) -> 
         matrix_results[(player_a.name, player_b.name)] = format_score(score_a)
         matrix_results[(player_b.name, player_a.name)] = format_score(score_b)
 
-    return matrix_results
+    return matrix_results, matrix_tooltips
 
 
 def format_score(value: float) -> str:
@@ -172,7 +189,11 @@ def abbreviate_name(name: str) -> str:
     return name[:3]
 
 
-def render_standings(players: dict[str, Player], matrix_results: dict[tuple[str, str], str]) -> str:
+def render_standings(
+    players: dict[str, Player],
+    matrix_results: dict[tuple[str, str], str],
+    matrix_tooltips: dict[tuple[str, str], str],
+) -> str:
     ordered_players = sorted(players.values(), key=lambda player: (player.name.casefold(), player.name))
 
     points_label = "points (fleet points)"
@@ -205,8 +226,9 @@ def render_standings(players: dict[str, Player], matrix_results: dict[tuple[str,
                 continue
 
             result = matrix_results.get((player.name, opponent.name), "")
+            tooltip = matrix_tooltips.get((player.name, opponent.name), matchup_label)
             cells.append(
-                f'<td class="matrix-cell" title="{escape(matchup_label)}" aria-label="{escape(matchup_label)}">'
+                f'<td class="matrix-cell" title="{escape(tooltip)}" aria-label="{escape(tooltip)}">'
                 f'{escape(result)}</td>'
             )
         cells.append(
@@ -276,9 +298,9 @@ def render_page(standings_html: str) -> str:
 def main() -> None:
     players = load_players(PLAYERS_PATH)
     results = load_results(RESULTS_PATH, players)
-    matrix_results = apply_results(players, results)
+    matrix_results, matrix_tooltips = apply_results(players, results)
 
-    standings_html = render_standings(players, matrix_results)
+    standings_html = render_standings(players, matrix_results, matrix_tooltips)
     page_html = render_page(standings_html)
 
     SITE_DIR.mkdir(parents=True, exist_ok=True)
