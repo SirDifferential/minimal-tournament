@@ -4,7 +4,22 @@ Minimal tool to run round robin tournaments and display its results on a webpage
 
 ## Usage
 
-* Populate data/players.json with player names. ELO scores are currently unused, but may be used in future for Swiss tournament formats.
+* Populate data/players.json with player names.
+
+```
+[
+  {
+    "name": "Gekko",
+    "elo": 2000.0
+  },
+  {
+    "name": "TDNLT",
+    "elo": 1900.0
+  }
+]
+```
+
+* ELO scores are currently unused, but may be used in future for Swiss tournament formats.
 * Write results in results.json like so:
 
 ```
