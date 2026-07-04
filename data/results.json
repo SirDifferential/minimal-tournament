@@ -61,5 +61,12 @@
 		"winner": "Gekko",
 		"fleet_points": 58,
 		"date": "2026-07-03"
+	},
+	{
+		"player_a": "Mothra",
+		"player_b": "FwiffoForce",
+		"winner": "Mothra",
+		"fleet_points": 86,
+		"date": "2026-07-04"
 	}
 ]
