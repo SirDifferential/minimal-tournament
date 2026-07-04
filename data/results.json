@@ -40,5 +40,26 @@
 		"winner": "Gekko",
 		"fleet_points": 81,
 		"date": "2026-06-30"
+	},
+	{
+		"player_a": "Azak",
+		"player_b": "TDNLT",
+		"winner": "Azak",
+		"fleet_points": 31,
+		"date": "2026-07-01"
+	},
+	{
+		"player_a": "Gekko",
+		"player_b": "FwiffoForce",
+		"winner": "Gekko",
+		"fleet_points": 78,
+		"date": "2026-07-01"
+	},
+	{
+		"player_a": "Gekko",
+		"player_b": "Barahir",
+		"winner": "Gekko",
+		"fleet_points": 58,
+		"date": "2026-07-03"
 	}
 ]
