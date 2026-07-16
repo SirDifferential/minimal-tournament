@@ -96,5 +96,19 @@
 		"winner": "TDNLT",
 		"fleet_points": 43,
 		"date": "2026-07-13"
+	},
+	{
+		"player_a": "Azak",
+		"player_b": "blörö",
+		"winner": "Azak",
+		"fleet_points": 53,
+		"date": "2026-07-16"
+	},
+	{
+		"player_a": "Mothra",
+		"player_b": "Barahir",
+		"winner": "Mothra",
+		"fleet_points": 86,
+		"date": "2026-07-16"
 	}
 ]
