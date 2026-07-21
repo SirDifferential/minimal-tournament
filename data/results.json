@@ -124,5 +124,19 @@
 		"winner": "Barahir",
 		"fleet_points": 44,
 		"date": "2026-07-17"
+	},
+	{
+		"player_a": "Gekko",
+		"player_b": "blörö",
+		"winner": "Gekko",
+		"fleet_points": 91,
+		"date": "2026-07-17"
+	},
+	{
+		"player_a": "Gekko",
+		"player_b": "Mothra",
+		"winner": "Mothra",
+		"fleet_points": 71,
+		"date": "2026-07-18"
 	}
 ]
